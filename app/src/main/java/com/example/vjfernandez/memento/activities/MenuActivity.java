@@ -1,10 +1,10 @@
 package com.example.vjfernandez.memento.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.autofill.AutofillValue;
+import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -29,10 +29,29 @@ public class MenuActivity extends AppCompatActivity {
         iv = (ImageView)findViewById(R.id.imageView);
 
         greetingText();
+        tutorials();
     }
 
     public void greetingText(){
-        //String studentName = MainActivity.getName();
         tv1.append("Hi "+MainActivity.name+", Welcome to Memento!");
+    }
+
+
+    public void tutorials(){
+        bt3.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        intentActivity(TutorialActivity.class);
+                    }
+                }
+        );
+    }
+
+
+
+    public void intentActivity(Class activity){
+        Intent intent = new Intent(getApplicationContext(),activity);
+        startActivity(intent);
     }
 }
