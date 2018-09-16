@@ -31,7 +31,7 @@ public class TutorialActivity extends AppCompatActivity {
         t1 = findViewById(R.id.tutorial1);
         m1 = findViewById(R.id.marks1);
 
-        //displayMarks();
+        displayMarks();
         updateTable();
 
     }
