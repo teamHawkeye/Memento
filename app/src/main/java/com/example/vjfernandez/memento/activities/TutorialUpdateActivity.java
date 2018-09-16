@@ -11,7 +11,7 @@ import com.example.vjfernandez.memento.R;
 import com.example.vjfernandez.memento.helpers.InputValidation;
 import com.example.vjfernandez.memento.sql.DatabaseHelper;
 
-public class TutorialUpdateActivity extends AppCompatActivity implements View.OnClickListener {
+public class TutorialUpdateActivity extends AppCompatActivity implements View.OnClickListener{
 
     DatabaseHelper myDb;
     InputValidation inputValidation;
@@ -44,7 +44,7 @@ public class TutorialUpdateActivity extends AppCompatActivity implements View.On
                 break;
             case R.id.resetButton:
                 emptyInputEditText();
-                myDb.resetTable("Tutorial");
+                myDb.resetTable("Time_Table");
         }
     }
 

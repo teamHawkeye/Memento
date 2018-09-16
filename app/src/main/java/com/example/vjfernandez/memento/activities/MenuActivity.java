@@ -29,13 +29,37 @@ public class MenuActivity extends AppCompatActivity {
         iv = (ImageView)findViewById(R.id.imageView);
 
         greetingText();
+        timeTable();
         tutorials();
+        attendanceStatus();
+        gpa();
     }
 
     public void greetingText(){
         tv1.append("Hi "+MainActivity.name+", Welcome to Memento!");
     }
 
+    public void timeTable(){
+        bt1.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        intentActivity(TimeTableActivity.class);
+                    }
+                }
+        );
+    }
+
+    public void attendanceStatus(){
+        bt2.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        intentActivity(AttendanceActivity.class);
+                    }
+                }
+        );
+    }
 
     public void tutorials(){
         bt3.setOnClickListener(
@@ -48,7 +72,16 @@ public class MenuActivity extends AppCompatActivity {
         );
     }
 
-
+    public void gpa(){
+        bt4.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        intentActivity(GpaActivity.class);
+                    }
+                }
+        );
+    }
 
     public void intentActivity(Class activity){
         Intent intent = new Intent(getApplicationContext(),activity);

@@ -9,15 +9,27 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "Student.db";
-    private static final String TABLE_NAME = "Student";
-    private static final String COL_1 = "Stu_NO";
-    private static final String COL_2 = "Name";
-    private static final String COL_3 = "Password";
 
-    private static final String TABLE_NAME1 = "Tutorial";
-    private static final String COL_4 = "Cource_Code";
-    private static final String COL_5 = "Tutorial_Name";
-    private static final String COL_6 = "Mark";
+    private static final String STUDENT_TABLE = "Student";
+    private static final String TIMETABLE_TABLE = "Time_Table";
+    private static final String ATTENDANCE_TABLE = "Attendance";
+    private static final String RESULT_TABLE = "Results";
+    private static final String TUTORIAL_TABLE = "Tutorial";
+
+    private static final String STUDENT_NO_COL = "Stu_NO";
+    private static final String NAME_COL = "Name";
+    private static final String PASSWORD_COL = "Password";
+    private static final String COURSE_CODE_COL = "Course_Code";
+    private static final String COURSE_NAME_COL = "Course_Name";
+    private static final String DAY_COL = "Day";
+    private static final String START_TIME_COL = "Start_Time";
+    private static final String END_TIME_COL = "End_Time";
+    private static final String VENUE_COL = "Venue";
+    private static final String YEAR_COL = "Year";
+    private static final String SEMESTER_COL = "Semester";
+    private static final String RESULT_COL = "Result";
+    private static final String TUTORIAL_NAME_COL = "Tutorial_Name";
+    private static final String MARK_COL = "Mark";
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, 1);
@@ -25,30 +37,30 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        db.execSQL("CREATE TABLE Tutorial(Course_Code char(10) PRIMARY KEY ,Tutorial_Name varchar(20),Mark Varchar(5))");
         db.execSQL("CREATE TABLE Student(Stu_NO char(11) PRIMARY KEY ,Name varchar(30),Password varchar(20))");
-        db.execSQL("CREATE TABLE Time_Table(Cource_Code char(10) PRIMARY KEY ,Course_Name Varchar(20),Day time,Start_Time time,End_Time time,Venue Varchar(20))");
-        db.execSQL("CREATE TABLE Attendance(Cource_Code char(10) PRIMARY KEY ,Total_Hours int,Attend_Hours int,Held_Hours int)");
-        db.execSQL("CREATE TABLE Results(Cource_Code char(10) PRIMARY KEY ,Year varchar(5),Semester Char(1),Result varchar(2))");
-        db.execSQL("CREATE TABLE Tutorial(Cource_Code char(10) PRIMARY KEY ,Tutorial_Name varchar(20),Mark Varchar(5))");
+        db.execSQL("CREATE TABLE Time_Table(Course_Code char(10) PRIMARY KEY ,Course_Name Varchar(20),Day char(3),Start_Time time,End_Time time,Venue Varchar(20))");
+        db.execSQL("CREATE TABLE Attendance(Course_Code char(10) PRIMARY KEY ,Total_Hours int,Attend_Hours int,Held_Hours int)");
+        db.execSQL("CREATE TABLE Results(Course_Code char(10) PRIMARY KEY ,Year varchar(5),Semester Char(1),Result varchar(2))");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS Student");
+        db.execSQL("DROP TABLE IF EXISTS Tutorial");
         db.execSQL("DROP TABLE IF EXISTS Time_Table");
         db.execSQL("DROP TABLE IF EXISTS Attendance");
         db.execSQL("DROP TABLE IF EXISTS Results");
-        db.execSQL("DROP TABLE IF EXISTS Tutorial");
+        db.execSQL("DROP TABLE IF EXISTS Student");
         onCreate(db);
     }
 
     public boolean insertData(String studentNumber, String name, String password) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(COL_1, studentNumber);
-        contentValues.put(COL_2, name);
-        contentValues.put(COL_3, password);
-        long result = db.insert(TABLE_NAME, null, contentValues);
+        contentValues.put(STUDENT_NO_COL, studentNumber);
+        contentValues.put(NAME_COL, name);
+        contentValues.put(PASSWORD_COL, password);
+        long result = db.insert(STUDENT_TABLE, null, contentValues);
         if (result == -1)
             return false;
         else
@@ -58,10 +70,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public boolean insertDataTutorial(String courseCode, String tutorial, String mark) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues1 = new ContentValues();
-        contentValues1.put(COL_4, courseCode);
-        contentValues1.put(COL_5, tutorial);
-        contentValues1.put(COL_6, mark);
-        long result1 = db.insert(TABLE_NAME1, null, contentValues1);
+        contentValues1.put(COURSE_CODE_COL, courseCode);
+        contentValues1.put(TUTORIAL_NAME_COL, tutorial);
+        contentValues1.put(MARK_COL, mark);
+        long result1 = db.insert(TUTORIAL_TABLE, null, contentValues1);
         if (result1 == -1)
             return false;
         else
@@ -133,11 +145,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return stuName;
     }
 
-    public Cursor getAllDataTutorial(){
+    public String getAllDataTutorial(){
         SQLiteDatabase db = this.getReadableDatabase();
-        db.execSQL("Insert into Tutorial values('SE/2015/047','Tutorial 01','80')");
-        Cursor res1 = db.rawQuery("select * from Tutorial", null);
+        db.execSQL("INSERT INTO Tutorial VALUES('SE/2015/047','Tutorial 01','80')");
+        Cursor res = db.rawQuery("SELECT * FROM "+TUTORIAL_TABLE, null);
 
-        return res1;
+        String course="dfsddfg";
+        while (res.moveToNext()){
+            course=res.getString(0);
+        }
+        return course;
     }
 }

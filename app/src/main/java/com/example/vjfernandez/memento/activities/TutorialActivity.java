@@ -19,9 +19,10 @@ public class TutorialActivity extends AppCompatActivity {
     DatabaseHelper myDB;
 
     @Override
-    protected void onCreate( Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tutorial);
+
         myDB= new DatabaseHelper(this);
 
 
@@ -30,8 +31,9 @@ public class TutorialActivity extends AppCompatActivity {
         t1 = findViewById(R.id.tutorial1);
         m1 = findViewById(R.id.marks1);
 
+        //displayMarks();
         updateTable();
-        displayMarks();
+
     }
 
     public void updateTable(){
@@ -47,17 +49,7 @@ public class TutorialActivity extends AppCompatActivity {
     }
 
     public void displayMarks(){
-
-        Cursor result=myDB.getAllDataTutorial();
-
-        while (result.moveToNext()){
-            String courseCodeDB=result.getString(0);
-            String tutorialDB=result.getString(1);
-            String mark=result.getString(2);
-
-            c1.setText(courseCodeDB);
-            t1.setText(tutorialDB);
-            m1.setText(mark);
-        }
+        String result=myDB.getAllDataTutorial();
+        c1.setText(result);
     }
 }

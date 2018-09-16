@@ -24,6 +24,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
         databaseHelper = new DatabaseHelper(this);
         inputValidation = new InputValidation(this);
 
@@ -51,7 +52,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 break;
             case R.id.button2:
                 emptyInputEditText();
-                databaseHelper.resetTable("Student");
+                databaseHelper.resetTable("Tutorial");
         }
     }
 
