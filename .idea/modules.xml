@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/Desktop-Memento.iml" filepath="$PROJECT_DIR$/Desktop-Memento.iml" />
       <module fileurl="file://$PROJECT_DIR$/Memento.iml" filepath="$PROJECT_DIR$/Memento.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/Memento-app.iml" filepath="$PROJECT_DIR$/app/Memento-app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
