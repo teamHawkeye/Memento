@@ -39,6 +39,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         bt1.setOnClickListener(this);
         bt2.setOnClickListener(this);
         tv.setOnClickListener(this);
+
+        databaseHelper.close();
     }
 
     @Override

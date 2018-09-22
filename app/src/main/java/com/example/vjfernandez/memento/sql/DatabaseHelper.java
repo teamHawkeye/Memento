@@ -37,7 +37,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE Tutorial(Course_Code char(10) PRIMARY KEY ,Tutorial_Name varchar(20),Mark Varchar(5))");
+        db.execSQL("CREATE TABLE Tutorial(Course_Code varchar(10) PRIMARY KEY ,Tutorial_Name varchar(20),Mark Varchar(5))");
         db.execSQL("CREATE TABLE Student(Stu_NO char(11) PRIMARY KEY ,Name varchar(30),Password varchar(20))");
         db.execSQL("CREATE TABLE Time_Table(Course_Code char(10) PRIMARY KEY ,Course_Name Varchar(20),Day char(3),Start_Time time,End_Time time,Venue Varchar(20))");
         db.execSQL("CREATE TABLE Attendance(Course_Code char(10) PRIMARY KEY ,Total_Hours int,Attend_Hours int,Held_Hours int)");
@@ -61,11 +61,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(NAME_COL, name);
         contentValues.put(PASSWORD_COL, password);
         long result = db.insert(STUDENT_TABLE, null, contentValues);
-        if (result == -1)
+        if (result == -1){
+            db.close();
             return false;
-        else
+        }
+        else{
+            db.close();
             return true;
-    }
+        }
+
+}
 
     public boolean insertDataTutorial(String courseCode, String tutorial, String mark) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -73,11 +78,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues1.put(COURSE_CODE_COL, courseCode);
         contentValues1.put(TUTORIAL_NAME_COL, tutorial);
         contentValues1.put(MARK_COL, mark);
-        long result1 = db.insert(TUTORIAL_TABLE, null, contentValues1);
-        if (result1 == -1)
+        long result = db.insert(TUTORIAL_TABLE, null, contentValues1);
+        if (result == -1){
+            db.close();
             return false;
-        else
+        }
+        else{
+            db.close();
             return true;
+        }
     }
 
 
@@ -91,9 +100,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             String passwordDB=res.getString(2);
 
             if(StuNoDB.equals(stuNo) && passwordDB.equals(password)){
+                res.close();
                 return true;
             }
         }
+        res.close();
         return false;
     }
 
@@ -104,9 +115,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         while (res.moveToNext()){
             String StuNoDB=res.getString(0);
             if(StuNoDB.equals(stuNo)){
+                res.close();
                 return true;
             }
         }
+        res.close();
         return false;
     }
 
@@ -119,9 +132,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             String tutorialDB=res1.getString(1);
 
             if(courseCodeDB.equals(courseCode) && tutorialDB.equals(tutorial)){
+                res1.close();
                 return true;
             }
         }
+        res1.close();
         return false;
     }
 
@@ -139,21 +154,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             String StuNoDB=res.getString(0);
             if(StuNoDB.equals(stuNo)){
                 stuName = res.getString(1);
+                res.close();
                 return stuName;
             }
         }
+        res.close();
         return stuName;
     }
 
-    public String getAllDataTutorial(){
+    public Cursor getAllDataTutorial(String tableName){
         SQLiteDatabase db = this.getReadableDatabase();
-        db.execSQL("INSERT INTO Tutorial VALUES('SE/2015/047','Tutorial 01','80')");
-        Cursor res = db.rawQuery("SELECT * FROM "+TUTORIAL_TABLE, null);
-
-        String course="dfsddfg";
-        while (res.moveToNext()){
-            course=res.getString(0);
-        }
-        return course;
+        //db.execSQL("INSERT INTO Results VALUES('SENG 21213','Year 01','semester 01','A+')");
+        //db.execSQL("INSERT INTO Results VALUES('SENG 21212','Year 01','semester 01','B')");
+        //db.execSQL("INSERT INTO Results VALUES('SENG 21214','Year 01','semester 01','C')");
+        return db.rawQuery("SELECT * FROM "+tableName, null);
     }
 }

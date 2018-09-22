@@ -44,7 +44,8 @@ public class TutorialUpdateActivity extends AppCompatActivity implements View.On
                 break;
             case R.id.resetButton:
                 emptyInputEditText();
-                myDb.resetTable("Time_Table");
+                myDb.resetTable("Tutorial");
+                Toast.makeText(TutorialUpdateActivity.this,"Reset is Successful",Toast.LENGTH_LONG).show();
         }
     }
 
@@ -61,6 +62,7 @@ public class TutorialUpdateActivity extends AppCompatActivity implements View.On
         }
         if (!myDb.checkTutorial(et1.getText().toString(),et2.getText().toString())) {
             if(myDb.insertDataTutorial(et1.getText().toString(),et2.getText().toString(),et3.getText().toString())){
+                Toast.makeText(TutorialUpdateActivity.this,"Adding is Success",Toast.LENGTH_LONG).show();
                 finish();
             }
             else

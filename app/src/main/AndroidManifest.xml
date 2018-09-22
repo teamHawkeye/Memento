@@ -22,6 +22,7 @@
         <activity android:name=".activities.TutorialActivity"/>
         <activity android:name=".activities.GpaActivity"/>
         <activity android:name=".activities.TutorialUpdateActivity"/>
+        <activity android:name=".activities.GpaUpdateActivity"/>
     </application>
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />

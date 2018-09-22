@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         myDb = new DatabaseHelper(this);
 
         ed1=(EditText)findViewById(R.id.editText1);
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
         login();
         createAccount();
+        myDb.close();
     }
 
 
