@@ -178,8 +178,8 @@ public class GpaActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(getApplicationContext(),GpaUpdateActivity.class);
-                        startActivity(intent);
+                        //Intent intent = new Intent(getApplicationContext(),GpaUpdateActivity.class);
+                        //startActivity(intent);
                     }
                 }
         );
